@@ -69,6 +69,7 @@ const roles = [
     {title:'แก้ไขข้อมูลส่วนตัว',to:'/Evaluatee/Edit_eva',role:'ผู้รับการประเมินผล'},
     {title:'แบบประเมิน',to:'/Evaluatee/Selfeva',role:'ผู้รับการประเมินผล'},
     {title:'ตรวจสอบผลการประเมิน',to:'/Evaluatee/Check_score',role:'ผู้รับการประเมินผล' },
+    {title:'รายงานผล',to:'/Evaluatee/Report_eva',role:'ผู้รับการประเมินผล' },
 ]
 const navitem = computed(() => roles.filter((item) => item.role.includes(user.value.role)))
 
@@ -90,9 +91,15 @@ onMounted(fetchUser)
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 @media print{
     .v-btn,.noP{
         display: none !important;
+=======
+@media print {
+    .v-btn,.noP{
+        display: none;
+>>>>>>> 30ed537224c2b9c84f9926e466dc3aaeb44e0aca
     }
 }
 </style>
