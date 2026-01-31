@@ -55,7 +55,6 @@ const id_eva = useRoute().params.id_eva
 const result = ref([])
 
 const file = ref<File | null>(null)
-const name_doc = ref('')
 
 const fetch = async () => {
     try{
@@ -73,6 +72,7 @@ const saveMember = async () =>{
         formData.append('file',file.value)
         await axios.post(`${commit}/signature/${id_eva}`,formData,{headers:{Authorization:`Bearer ${token}`}})
         alert('ทำรายการสำเร็จ')
+        file.value = null
         await fetch()
     }catch(err){
         console.error('Error!',err)
