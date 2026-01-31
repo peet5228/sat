@@ -77,6 +77,9 @@ definePageMeta({
 const token = process.client ? localStorage.getItem('token') : null
 
 const result = ref([])
+const search = ref('')
+
+
 
 const form = ref({
     id_member:null,

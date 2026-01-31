@@ -1,6 +1,6 @@
 <template>
     <v-app>
-    <v-app-bar color="#7d0c14" >
+    <v-app-bar color="#7d0c14" class="noP">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>NTC evaluation system</v-toolbar-title>
       <v-spacer />
@@ -57,7 +57,7 @@ const roles = [
     {title:'สถานะการประเมินของผู้รับการประเมินผล',to:'/Staff/StatusEva',role:'ฝ่ายบุคลากร'},
     {title:'สถานะการประเมินของกรรมการประเมิน',to:'/Staff/StatusCommit',role:'ฝ่ายบุคลากร'},
     {title:'คู่มือสำหรับการประเมิน',to:'/Staff/Document',role:'ฝ่ายบุคลากร'},
-    {title:'รายงาน',to:'/Staff/Document',role:'ฝ่ายบุคลากร'},
+    {title:'รายงาน',to:'/Staff/Report',role:'ฝ่ายบุคลากร'},
 
     // Commit
     {title:'รายชื่อผู้รับการรปะเมิน',to:'/Committee/',role:'กรรมการประเมิน'},
@@ -90,5 +90,9 @@ onMounted(fetchUser)
 </script>
 
 <style scoped>
-
+@media print{
+    .v-btn,.noP{
+        display: none !important;
+    }
+}
 </style>
