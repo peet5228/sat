@@ -7,13 +7,17 @@ const {verifyToken,requireRole} = require('../../middleware/authMiddleware')
 
 
 // API สำหรับ Get ข้อมูล
-router.get('/',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+router.get('/',verifyToken,requireRole('กรรมการประเมิน'),async (req,res) => {
     try{
-        const [rows] = await db.query(`select * from tb_eva , tb_member , tb_system where tb_eva.id_member=tb_member.id_member and tb_system.id_sys=tb_eva.id_sys and status_eva=1 and status_sys='y' order by id_eva desc`)
+        const id_member = req.user.id_member
+        const [rows] = await db.query(
+            'select * from tb_member m,tb_eva e,tb_system s,tb_commit c where c.id_member=? and c.id_eva=e.id_eva and e.id_member=m.id_member and e.id_sys=s.id_sys and s.status_sys=? order by e.id_eva desc',
+            [id_member,'y']
+        )
         res.json(rows)
     }catch(err){
-        console.log("Error Get",err)
-        res.status(500).json({message:'Error Get'})
+        console.error(" Get User Failed!",err)
+        res.status(500).json({message:'Error Get User'})
     }
 })
 
