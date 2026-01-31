@@ -147,7 +147,7 @@ const saveMember = async () =>{
         form.value.id_member
             ? await axios.put(`${staff}/member/${form.value.id_member}`,payload,{headers:{Authorization:`Bearer ${token}`}})
             : await axios.post(`${api}/auth/regis`,{...payload,password:form.value.password})
-        alert('ทำรานการสำเร็จ')
+        alert('ทำรายการสำเร็จ')
         await fetch()
         await reset()
     }catch(err){
