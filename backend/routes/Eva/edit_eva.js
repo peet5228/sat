@@ -2,6 +2,7 @@ const express = require('express')
 const db = require('../../db')
 const router = express.Router()
 const {verifyToken,requireRole} = require('../../middleware/authMiddleware')
+const bc = require('bcrypt')
 
 // GET API , Profile
 router.get('/',verifyToken,requireRole('ผู้รับการประเมินผล'),async (req,res) => {
@@ -14,5 +15,24 @@ router.get('/',verifyToken,requireRole('ผู้รับการประเ�
         res.status(500).json({message:'Error Get Profile'})
     }
 })
+
+// API Update ข้อมูล
+router.put('/',verifyToken,requireRole('ผู้รับการประเมินผล'),async (req,res) => {
+    try{
+        const id_member = req.user.id_member
+        const {first_name,last_name,email,username,password} = req.body
+        if(password && password.trim()){
+            const hash = await bc.hash(password,10)
+            await db.query(`update tb_member set first_name=?,last_name=?,email=?,username=?,password=? where id_member='${id_member}'`,[first_name,last_name,email,username,hash])
+        }else{
+            await db.query(`update tb_member set first_name=?,last_name=?,email=?,username=? where id_member='${id_member}'`,[first_name,last_name,email,username])
+        }
+        res.json({message:'Update Success!'})
+    }catch(err){
+        console.log("Error Update",err)
+        res.status(500).json({message:'Error Update'})
+    }
+})
+
 
 module.exports = router

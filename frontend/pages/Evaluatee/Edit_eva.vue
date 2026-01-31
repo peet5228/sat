@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12">
                 <v-card>
-                    <v-sheet class="pa-4 text-center" color="#7d0c14">
+                    <v-sheet class="pa-4 text-center" color="#404040">
                         <h1 class="text-h5 font-weight-bold">แก้ไขข้อมูลส่วนตัว</h1>
                     </v-sheet>
                     <v-card-text>
@@ -79,9 +79,10 @@ function validateForm(){
 }
 
 const saveMember = async () =>{
+    const token = localStorage.getItem('token')
     if(!validateForm())return
     try{
-        await axios.post(`${eva}/Eva/edit_eva`,form.value)
+        await axios.put(`${eva}/edit_eva`,form.value,{headers:{Authorization:`Bearer ${token}`}})
         alert('แก้ไขสำเร็จ')
         localStorage.removeItem('token')
         navigateTo('/',{replace:true})
