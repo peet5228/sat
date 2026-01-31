@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 
 // POST API , Login
-router.post('login',async (req,res) => {
+router.post('/login',async (req,res) => {
     try{
         const {username,password,role} = req.body
         const [rows] = await db.query('select * from tb_member where username=? and role=?',[username,role])
