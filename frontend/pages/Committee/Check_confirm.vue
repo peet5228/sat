@@ -2,7 +2,7 @@
     <v-container fluid class="py-10">
                 <v-card>
                     <v-sheet class="pa-4" color="">
-                        <h1 class="text-h5 font-weight-bold">ดำเนินการประเมิน</h1>
+                        <h1 class="text-h5 font-weight-bold">ตรวจสอบและยืนยันผล</h1>
                     </v-sheet>
                     <v-card-text>
                         <v-table>

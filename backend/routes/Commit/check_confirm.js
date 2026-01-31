@@ -11,8 +11,8 @@ router.get('/',verifyToken,requireRole('กรรมการประเมิ�
     try{
         const id_member = req.user.id_member
         const [rows] = await db.query(
-            'select * from tb_member m,tb_eva e,tb_system s,tb_commit c where c.id_member=? and e.status_eva in (3) and c.id_eva=e.id_eva and e.id_member=m.id_member and e.id_sys=s.id_sys and s.status_sys=? order by e.id_eva desc',
-            [id_member,'y']
+            'select * from tb_member m,tb_eva e,tb_system s,tb_commit c where c.id_member=? and e.status__commit=? and c.id_eva=e.id_eva and e.id_member=m.id_member and e.id_sys=s.id_sys and s.status_sys=? order by e.id_eva desc',
+            [id_member,'y','y']
         )
         res.json(rows)
     }catch(err){
