@@ -35,7 +35,7 @@ router.get('/eva',verifyToken,requireRole('ฝ่ายบุคลากร'),a
 router.get('/commit',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
         // console.log('Connect')
-        const [rows] = await db.query(`select id_member,first_name,last_name,email,usernam,role from tb_member where role='กรรมการประเมิน' order by id_member desc`)
+        const [rows] = await db.query(`select id_member,first_name,last_name,email,username,role from tb_member where role='กรรมการประเมิน' order by id_member desc`)
         res.json(rows)
     }catch(err){
         console.log("Error Get",err)
@@ -67,7 +67,7 @@ router.put('/:id_member',verifyToken,requireRole('ฝ่ายบุคลาก
         }else{
             await db.query(`update tb_member set first_name=?,last_name=?,email=?,username=?,role=? where id_member='${id_member}'`,[first_name,last_name,email,username,role])
         }
-        res.json({rows,message:'Update Success!'})
+        res.json({message:'Update Success!'})
     }catch(err){
         console.log("Error Update",err)
         res.status(500).json({message:'Error Update'})
