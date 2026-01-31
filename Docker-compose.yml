@@ -43,7 +43,7 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_USER: root
-      DB_PASSWORD: 1234
+      PMA_PASSWORD: 1234
     networks: ["app-network"]
 
   mysql:
