@@ -42,7 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(items,index) in result" :keys="items.id_sys">
+                                <tr v-for="(items,index) in result" :keys="items.id_eva">
                                     <td class="text-center border">{{ index + 1 }}</td>
                                     <td class="text-center border">{{ items.first_name }} {{ items.last_name }}</td>
                                     <td class="text-center border">{{ items.day_eva }}</td>

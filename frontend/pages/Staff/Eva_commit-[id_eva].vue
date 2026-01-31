@@ -71,7 +71,7 @@ const List = ref([
     {id_commit:null,id_member:'',role:''},
 ])
 
-const nameMap = computed(() => Object.fromEntries(people.value.map(p => [p.fullname_commit,p.id_member])))
+const nameMap = computed(() => Object.fromEntries(people.value.map(p => [p.id_member,p.fullname_commit])))
 const nameOf = (id:number) => nameMap.value[id]
 
 const fetch = async () => {
@@ -88,10 +88,12 @@ const fetch = async () => {
                 {id_commit:null,id_member:'',role:''},
             ]
         }else{
-            List.value = useData.value.map(c => ({
+            List.value = useData.map(c => ({
                 id_commit:c.id_commit,id_member:c.id_member,role:c.role
             }))
-            while(List.value.length < 3) return List.value.push({id_commit:null,id_member:'',role:''})
+            while(List.value.length < 3){
+                List.value.push({id_commit:null,id_member:'',role:''})   
+            }
         }
     }catch(err){
         console.error("Error Fetching",err)

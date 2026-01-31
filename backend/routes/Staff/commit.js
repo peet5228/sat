@@ -58,4 +58,16 @@ router.post('/:id_eva',verifyToken,requireRole('ฝ่ายบุคลาก�
     }
 })
 
+// API สำหรับ Delete ข้อมูล
+router.delete('/:id_commit',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+    try{
+        const {id_commit} = req.params
+        const [rows] = await db.query(`delete from tb_commit where id_commit='${id_commit}'`)
+        res.json(rows)
+    }catch(err){
+        console.log("Error Delete",err)
+        res.status(500).json({message:'Error Delete'})
+    }
+})
+
 module.exports = router
