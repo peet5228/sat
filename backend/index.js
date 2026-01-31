@@ -15,7 +15,7 @@ app.use('/api/auth',auth)
 
 
 // Block 404 Status
-app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!'}))
+app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!555'}))
 
 // Listen Port
 app.listen(3001 , () => console.log("Server Running On Port 3001"))

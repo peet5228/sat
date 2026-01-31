@@ -12,7 +12,7 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-    networks: ["app-networks"]
+    networks: ["app-network"]
 
   backend:
     build: ./backend
@@ -30,9 +30,9 @@ services:
       DB_USER: root
       DB_PASSWORD: 1234
       DB_DATABASE: sat
-      JWT_SECRET: ntc&&1234
+      JWT_SECRET: "ntc&&1234"
       CHOKIDAR_USEPOLLING: true
-    networks: ["app-networks"]
+    networks: ["app-network"]
   phpmyadmin:
     image: phpmyadmin
     depends_on:
@@ -44,9 +44,9 @@ services:
       PMA_HOST: mysql
       PMA_USER: root
       DB_PASSWORD: 1234
-    networks: ["app-networks"]
+    networks: ["app-network"]
 
-  msyql:
+  mysql:
     image: mysql:8.0
     ports: ["3307:3306"]
     container_name: MYSQL_Container
@@ -55,6 +55,14 @@ services:
       - ./database:/docker-entrypoint-initdb.database
       - mysql_data:/var/lib/mysql
     environment:
-      MSYQL_ROOT_PASWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: sat
-    networks: ["app-networks"]
+      TZ: Asia/Bangkok
+    networks: ["app-network"]
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
