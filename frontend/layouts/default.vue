@@ -91,15 +91,10 @@ onMounted(fetchUser)
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-@media print{
-    .v-btn,.noP{
-        display: none !important;
-=======
+
 @media print {
     .v-btn,.noP{
         display: none;
->>>>>>> 30ed537224c2b9c84f9926e466dc3aaeb44e0aca
     }
 }
 </style>
