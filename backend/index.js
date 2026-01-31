@@ -21,6 +21,9 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+// Endpoint Eva API
+const edit_eva = require('./routes/Eva/edit_eva')
+app.use('/api/Eva/edit_eva',edit_eva)
 
 // ======= Endpoint Staff API =======
 const member = require('./routes/Staff/member')
