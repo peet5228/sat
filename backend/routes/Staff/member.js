@@ -1,6 +1,6 @@
 const express = require('express')
 const bc = require('bcrypt')
-const app = express.Router()
+const router = express.Router()
 const db = require('../../db')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
@@ -23,7 +23,7 @@ const {verifyToken,requireRole} = require('../../middleware/authMiddleware')
 router.get('/eva',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
         // console.log('Connect')
-        const [rows] = await db.query(`select id_member,first_name,last_name,email,usernam,role from tb_member where role='ผู้รับการประเมินผล' order by id_member desc`)
+        const [rows] = await db.query(`select id_member,first_name,last_name,email,username,role from tb_member where role='ผู้รับการประเมินผล' order by id_member desc`)
         res.json(rows)
     }catch(err){
         console.log("Error Get",err)

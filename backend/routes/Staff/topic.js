@@ -1,6 +1,6 @@
 const express = require('express')
 const bc = require('bcrypt')
-const app = express.Router()
+const router = express.Router()
 const db = require('../../db')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
