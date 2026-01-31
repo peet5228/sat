@@ -43,4 +43,19 @@ router.get('/:id_eva',verifyToken,requireRole('ฝ่ายบุคลากร
     }
 })
 
+// API สำหรับ Insert ข้อมูล
+router.post('/:id_eva',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
+    try{
+        const {id_eva} = req.params
+        await db.query(`delete from tb_commit where id_eva='${id_eva}'`)
+        const m = req.body
+        const v = m.map(p => [id_eva,p.id_member,p.role,'n'])
+        await db.query(`insert into tb_commit (id_eva,id_member,level_commit,status_commit) values ?`,[v])
+        res.json({message:'Insert Success'})
+    }catch(err){
+        console.log("Error Insert",err)
+        res.status(500).json({message:'Error Insert'})
+    }
+})
+
 module.exports = router
