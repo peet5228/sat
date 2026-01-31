@@ -1,0 +1,60 @@
+services:
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports: ["3000:3000"]
+    container_name: Frontend_Container
+    command: npm run dev -- --host 0.0.0.0
+    restart: always
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks: ["app-networks"]
+
+  backend:
+    build: ./backend
+    depends_on:
+      - mysql
+    ports: ["3001:3001"]
+    container_name: Backend_Container
+    command: npx nodemon -L index.js
+    restart: always
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_DATABASE: sat
+      JWT_SECRET: ntc&&1234
+      CHOKIDAR_USEPOLLING: true
+    networks: ["app-networks"]
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - mysql
+    ports: ["8080:80"]
+    container_name: PMA_Container
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      DB_PASSWORD: 1234
+    networks: ["app-networks"]
+
+  msyql:
+    image: mysql:8.0
+    ports: ["3307:3306"]
+    container_name: MYSQL_Container
+    restart: always
+    volumes:
+      - ./database:/docker-entrypoint-initdb.database
+      - mysql_data:/var/lib/mysql
+    environment:
+      MSYQL_ROOT_PASWORD: 1234
+      MYSQL_DATABASE: sat
+    networks: ["app-networks"]
