@@ -2,7 +2,7 @@
     <v-container fluid class="py-10">
                 <v-card>
                     <v-sheet class="pa-4" color="">
-                        <h1 class="text-h5 font-weight-bold">รายชื่อผู้รับการประเมิน</h1>
+                        <h1 class="text-h5 font-weight-bold">ดำเนินการประเมิน</h1>
                     </v-sheet>
                     <v-card-text>
                         <v-table>
@@ -12,9 +12,9 @@
                                     <th class="text-center border">ชื่อ</th>
                                     <th class="text-center border">นามสกุล</th>
                                     <th class="text-center border">วันที่ออกแบบประเมิน</th>
-                                    <!-- <th class="text-center border">รอบการประเมิน</th>
-                                    <th class="text-center border">สถานะการประเมิน</th> -->
-                                    <th class="text-center border">ตรวจสอบคะแนน</th>
+                                    <th class="text-center border">รอบการประเมิน</th>
+                                    <th class="text-center border">สถานะการประเมิน</th>
+                                    <th class="text-center border">ประเมินผล</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -23,11 +23,11 @@
                                     <td class="text-center border">{{ items.first_name }}</td>
                                     <td class="text-center border">{{ items.last_name }}</td>
                                     <td class="text-center border">{{ items.day_eva }}</td>
-                                    <!-- <td class="text-center border">รอบการประเมินที่ {{ items.round_sys }} ปี {{ items.year_sys }}</td>
-                                    <td class="text-center border">{{ items.status_eva === 1 ? 'ยังไม่ได้ประเมิน' : items.status_eva === 2 ? 'รอกรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td> -->
+                                    <td class="text-center border">รอบการประเมินที่ {{ items.round_sys }} ปี {{ items.year_sys }}</td>
+                                    <td class="text-center border">{{ items.status_eva === 1 ? 'ยังไม่ได้ประเมิน' : items.status_commit === 'y' ? 'ประเมินสำเร็จ' : items.status_eva === 2 ? 'รอกรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td>
                                     <td class="text-center border">
-                                        <!-- <v-btn class="text-white" color="warning" @click="edit(items)" size="small">แก้ไข</v-btn>&nbsp; -->
-                                        <v-btn class="text-white" color="blue" @click="go(items.id_eva)" size="small">ตรวจสอบ</v-btn>
+                                        <v-btn v-if="items.status_commit === 'y'" class="text-white" color="success" size="small">ประเมินแล้ว</v-btn>
+                                        <v-btn v-else class="text-white" color="blue" @click="go(items.id_eva)" size="small">ประเมิน</v-btn>
                                     </td>
                                 </tr>
                                 <tr v-if="result.length === 0">
@@ -62,7 +62,7 @@ const fetch = async () => {
 }
 
 const go = (id_eva:number) => {
-    navigateTo({path: `/Committee/Score_membber${id_eva}`})
+    navigateTo({path: `/Committee/Save_Score${id_eva}`})
 }
 
 onMounted(fetch)
