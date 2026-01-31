@@ -4,7 +4,7 @@
                     <v-sheet class="pa-4 text-center" color="">
                         <h1 class="text-h5 font-weight-bold">เพิ่มกรรมการ</h1>
                         <p class="text-center"><b>ผู้รับการประเมิน : </b>{{ header.first_name }} {{ header.last_name }}</p>
-                        <p class="text-center"><b>รอบการประเมิน : </b>รอบการประเมินที่ {{ header.round_eva }} ปี {{ header.year_sys }}</p>
+                        <p class="text-center"><b>รอบการประเมิน : </b>รอบการประเมินที่ {{ header.round_sys }} ปี {{ header.year_sys }}</p>
                     </v-sheet>
                     <v-card-text>
                         <v-form @submit.prevent="saveMember">
