@@ -26,7 +26,7 @@
                         </v-col>
                     </v-row>
                     <div class="mt-4">
-                        <v-card class="pa-2 text-end" color="success">คะแนนรวม : {{ user.total_commit }} คะแนน</v-card>
+                        <v-card class="pa-2 text-end" color="success">คะแนนรวม : {{ totalScore.toFixed(2) }} คะแนน</v-card>
                     </div>
                 </v-form>
                 <v-alert v-else-if="user.status_eva === 1" type="info">ยังไม่ได้กรอกแบบประเมิน</v-alert>
@@ -43,6 +43,7 @@ import {commit} from '../../API/base'
 const user = ref<any>({})
 const topics = ref<any>([])
 const id_eva = useRoute().params.id_eva
+const totalScore = ref(0)
 
 const viweFile = (filename:string) =>{
     const url = `http://localhost:3001/uploads/evadetail/${filename}`
@@ -63,6 +64,7 @@ const fetchTopic = async () =>{
     try{
         const res = await axios.get(`${commit}/score_commit/topic/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         topics.value = res.data
+        res.data.forEach(score =>( score.indicates.forEach((i) => totalScore.value += (i.score_commit*i.point_indicate))))
     }catch(err){
         console.error('Error GET Topics!',err)
     }

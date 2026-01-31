@@ -54,7 +54,7 @@ const result = ref<any>([])
 
 const fetch = async () => {
     try{
-        const res = await axios.get(`${commit}/show_eva`,{headers:{Authorization: `Bearer ${token}`}})
+        const res = await axios.get(`${commit}/check_confirm`,{headers:{Authorization: `Bearer ${token}`}})
         result.value = res.data
     }catch(err){
         console.error("Error Fetching",err)

@@ -1,6 +1,6 @@
 <template>
     <v-app>
-    <v-app-bar color="#7d0c14" >
+    <v-app-bar color="#7d0c14" class="noP">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>NTC evaluation system</v-toolbar-title>
       <v-spacer />
@@ -69,6 +69,7 @@ const roles = [
     {title:'แก้ไขข้อมูลส่วนตัว',to:'/Evaluatee/Edit_eva',role:'ผู้รับการประเมินผล'},
     {title:'แบบประเมิน',to:'/Evaluatee/Selfeva',role:'ผู้รับการประเมินผล'},
     {title:'ตรวจสอบผลการประเมิน',to:'/Evaluatee/Check_score',role:'ผู้รับการประเมินผล' },
+    {title:'รายงานผล',to:'/Evaluatee/Report_eva',role:'ผู้รับการประเมินผล' },
 ]
 const navitem = computed(() => roles.filter((item) => item.role.includes(user.value.role)))
 
@@ -90,5 +91,9 @@ onMounted(fetchUser)
 </script>
 
 <style scoped>
-
+@media print {
+    .v-btn,.noP{
+        display: none;
+    }
+}
 </style>
