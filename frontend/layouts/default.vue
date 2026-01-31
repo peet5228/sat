@@ -4,7 +4,8 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>NTC evaluation system</v-toolbar-title>
       <v-spacer />
-      <v-btn icon="mdi-logout" @click="logout" variant="text" />
+      <p class="text-center">ผู้ใช้งาน : {{ user.first_name }} {{ user.last_name }} <br> {{ user.role }}</p>&nbsp;
+      <v-btn icon="mdi-logout" @click="logout" variant="text" />&nbsp;
     </v-app-bar>
     <ClientOnly>
     <v-navigation-drawer v-model="drawer" width="260" color="#404040">
@@ -56,12 +57,12 @@ const fetchUser = async () =>{
         return await navigateTo('/',{replace:true})
     }
     try{
-        const res = await axios.get(`${api}/auth/regis`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${api}/profile`,{headers:{Authorization:`Bearer ${token}`}})
         user.value = res.data
     }catch(err){
         console.error('Error GET User!',err)
-        localStorage.removeItem('token')
-        await navigateTo('/',{replace:true})
+        // localStorage.removeItem('token')
+        // await navigateTo('/',{replace:true})
     }
 }
 onMounted(fetchUser)
