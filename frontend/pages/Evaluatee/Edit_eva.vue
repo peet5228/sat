@@ -29,11 +29,10 @@
                                     <v-text-field label="ยืนยันรหัสผ่าน" :type="showPw2 ? 'text' : 'password'" @click:append-inner="showPw2 = !showPw2" v-model="confirmPassword" :error-messages="error.confirmPassword"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-select label="เลือกประเภทสมาชิก" :items="['ฝ่ายบุคลากร','กรรมการประเมิน','ผู้รับการประเมินผล']" v-model="form.role" :error-messages="error.role"></v-select>
+                                    <v-alert>{{ form.role }}</v-alert>
                                 </v-col>
                                 <v-col cols="12" class="text-center">
-                                    <v-btn type="submit" color="#7d0c14">สมัคร</v-btn>&nbsp;&nbsp;<v-btn type="reset" color="#7d0c14">ยกเลิก</v-btn>
-                                    <p class="text-sm mt-2">มีบัญชีอยู่แล้ว? <nuxt-link to="/"><u>เข้าสู่ระบบ</u></nuxt-link></p>
+                                    <v-btn type="submit" color="success">แก้ไข</v-btn>&nbsp;&nbsp;<v-btn type="reset" color="error">ยกเลิก</v-btn>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -46,7 +45,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import {api} from '../API/base'
+import {eva} from '../../API/base'
 
 definePageMeta({
     layout:false
@@ -75,10 +74,11 @@ function validateForm(){
     else if(!emailReget.test(f.email.trim()))error.value.email='รูปแบบอีเมลไม่ถูกต้อง!'
     if(!f.username.trim())error.value.username='กรุณากรอกชื่อผู้ใช้!'
     else if(f.username.trim().length < 4)error.value.username='ต้องมีอย่างน้อย 4 ตัวอักษร!'
-    if(!f.password.trim())error.value.password='กรุณากรอกรหัสผ่าน!'
-    else if(f.password.trim().length < 6)error.value.password='ต้องมีอย่างน้อย 6 ตัวอักษร!'
-    if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน!'
-    else if(confirmPassword.value.trim() != f.password.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน!'
+    if(f.password && f.password.trim()){
+        if(f.password.trim().length < 6)error.value.password='ต้องมีอย่างน้อย 6 ตัวอักษร!'
+        if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน!'
+        else if(confirmPassword.value.trim() != f.password.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน!'
+    }
     if(!f.role.trim())error.value.role='กรุณาเลือกประเภทสมาชิก!'
     return Object.keys(error.value).length === 0
 }
@@ -86,13 +86,25 @@ function validateForm(){
 const saveMember = async () =>{
     if(!validateForm())return
     try{
-        await axios.post(`${api}/auth/regis`,form.value)
-        alert('สมัครสำเร็จ')
-        navigateTo('/')
+        await axios.post(`${eva}/Eva/edit_eva`,form.value)
+        alert('แก้ไขสำเร็จ')
+        localStorage.removeItem('token')
+        navigateTo('/',{replace:true})
     }catch(err){
-        console.error('Error Register!',err)
+        console.error('Error Edit_eva!',err)
     }
 }
+
+const fetchUser = async () =>{
+    const token = localStorage.getItem('token')
+    try{
+        const res = await axios.get(`${eva}/Eva/edit_eva`,{headers:{Authorization:`Bearer ${token}`}})
+        form.value = res.data
+    }catch(err){
+        console.error('Error GET User!',err)
+    }
+}
+onMounted(fetchUser)
 </script>
 
 <style scoped>
