@@ -27,7 +27,7 @@
                                     <td class="text-center border">{{ items.status_eva === 1 ? 'ยังไม่ได้ประเมิน' : items.status_eva === 2 ? 'รอกรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td> -->
                                     <td class="text-center border">
                                         <!-- <v-btn class="text-white" color="warning" @click="edit(items)" size="small">แก้ไข</v-btn>&nbsp; -->
-                                        <v-btn class="text-white" color="success" @click="go(items.id_eva)" size="small">ตรวจสอบ</v-btn>
+                                        <v-btn class="text-white" color="blue" @click="go(items.id_eva)" size="small">ตรวจสอบ</v-btn>
                                     </td>
                                 </tr>
                                 <tr v-if="result.length === 0">
@@ -50,7 +50,7 @@ definePageMeta({
 
 const token = process.client ? localStorage.getItem('token') : null
 
-const result = ref([])
+const result = ref<any>([])
 
 const fetch = async () => {
     try{
@@ -62,7 +62,7 @@ const fetch = async () => {
 }
 
 const go = (id_eva:number) => {
-    navigateTo({path: `Eva_commit-${id_eva}`})
+    navigateTo({path: `/Committee/Score_membber-${id_eva}`})
 }
 
 onMounted(fetch)
