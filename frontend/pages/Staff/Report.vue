@@ -2,17 +2,10 @@
     <v-container fluid class="py-10">
                 <v-card>
                     <v-sheet class="pa-4 text-center" color="">
-                        <h1 class="text-h5 font-weight-bold">Dashboard - Evaluatee</h1>
+                        <h1 class="text-h5 font-weight-bold">รายงาน</h1>
                     </v-sheet>
                     <v-card-text>
-                        <v-row>
-                            <v-col cols="12" md="4" v-for="b in box" :key="b">
-                                <v-card class="pa-4" elevation="5">
-                                    <div class="text-h5">{{ b.title }}</div>
-                                    <div class="text-h3">{{ b.value }}</div>
-                                </v-card>
-                            </v-col>
-                        </v-row>
+                        
                     </v-card-text>
                 </v-card>
     </v-container>
