@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(fileupload())
 app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 
-// Endpoint PubLic API
+// ======= Endpoint PubLic API =======
 const auth = require('./routes/auth')
 app.use('/api/auth',auth)
 
@@ -24,6 +24,10 @@ app.use('/api/profile',profile)
 // Endpoint Eva API
 const edit_eva = require('./routes/Eva/edit_eva')
 app.use('/api/Eva/edit_eva',edit_eva)
+
+// ======= Endpoint Staff API =======
+const member = require('./routes/Staff/member')
+app.use('/api/Staff/member',member)
 
 // Block 404 Status
 app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!555'}))
