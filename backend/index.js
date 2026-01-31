@@ -21,6 +21,9 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+// Endpoint Eva API
+const edit_eva = require('./routes/Eva/edit_eva')
+app.use('/api/Eva/edit_eva',edit_eva)
 
 // Block 404 Status
 app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!555'}))

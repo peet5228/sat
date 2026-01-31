@@ -1,11 +1,10 @@
 <template>
-    <v-container fluid class="fill-height">
-        <v-row justify="center" align="center">
-            <v-col cols="12" md="8" lg="6">
+    <v-container>
+        <v-row>
+            <v-col cols="12">
                 <v-card>
                     <v-sheet class="pa-4 text-center" color="#7d0c14">
-                        <h1 class="text-h5 font-weight-bold">สมัครสมาชิก</h1>
-                        <p class="mt-2 text-sm">ระบบประเมินบุคลากรวิทยาลัยเทคนิคน่าน</p>
+                        <h1 class="text-h5 font-weight-bold">แก้ไขข้อมูลส่วนตัว</h1>
                     </v-sheet>
                     <v-card-text>
                         <v-form @submit.prevent="saveMember">
@@ -22,11 +21,11 @@
                                 <v-col cols="12" md="6">
                                     <v-text-field label="ชื่อผู้ใช้" v-model="form.username" :error-messages="error.username"></v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="รหัสผ่าน" :type="showPw ? 'text' : 'password'" @click:append-inner="showPw = !showPw" v-model="form.password" :error-messages="error.password"></v-text-field>
+                               <v-col cols="12" md="6">
+                                    <v-text-field label="รหัสผ่าน" :append-inner-icon="showPw ? 'mdi-eye-off' : 'mdi-eye'" :type="showPw ? 'text' : 'password'" @click:append-inner="showPw = !showPw" v-model="form.password" :error-messages="error.password"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="ยืนยันรหัสผ่าน" :type="showPw2 ? 'text' : 'password'" @click:append-inner="showPw2 = !showPw2" v-model="confirmPassword" :error-messages="error.confirmPassword"></v-text-field>
+                                    <v-text-field label="ยืนยันรหัสผ่าน" :append-inner-icon="showPw2 ? 'mdi-eye-off' : 'mdi-eye'" :type="showPw2 ? 'text' : 'password'" @click:append-inner="showPw2 = !showPw2" v-model="confirmPassword" :error-messages="error.confirmPassword"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
                                     <v-alert>{{ form.role }}</v-alert>
@@ -46,10 +45,6 @@
 <script setup lang="ts">
 import axios from 'axios';
 import {eva} from '../../API/base'
-
-definePageMeta({
-    layout:false
-})
 
 const form = ref({
     first_name:'',
@@ -98,7 +93,7 @@ const saveMember = async () =>{
 const fetchUser = async () =>{
     const token = localStorage.getItem('token')
     try{
-        const res = await axios.get(`${eva}/Eva/edit_eva`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${eva}/edit_eva`,{headers:{Authorization:`Bearer ${token}`}})
         form.value = res.data
     }catch(err){
         console.error('Error GET User!',err)
