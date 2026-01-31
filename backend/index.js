@@ -82,6 +82,12 @@ app.use('/api/Staff/statusCommit',statusCommit)
 const doc = require('./routes/Staff/doc')
 app.use('/api/Staff/doc',doc)
 
+const eva_score = require('./routes/Staff/eva_score')
+app.use('/api/Staff/eva_score',eva_score)
+
+const commit_score = require('./routes/Staff/commit_score')
+app.use('/api/Staff/commit_score',commit_score)
+
 // Block 404 Status
 app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!555'}))
 

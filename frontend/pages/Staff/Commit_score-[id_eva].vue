@@ -60,13 +60,14 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import {eva} from '../../API/base'
+import {staff} from '../../API/base'
 
 const user = ref<any>({})
 const topics = ref<any>([])
 const scores = ref<any>([])
 const commits = ref<any>([])
 const totalScore = ref(0)
+const id_eva = useRoute().params.id_eva
 
 const viweFile = (filename:string) =>{
     const url = `http://localhost:3001/uploads/evadetail/${filename}`
@@ -76,7 +77,7 @@ const viweFile = (filename:string) =>{
 const fetchUser = async () =>{
     const token = localStorage.getItem('token')
     try{
-        const res = await axios.get(`${eva}/score_commit/user`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/commit_score/user/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         user.value = res.data
         totalScore.value = (user.value.total_eva + user.value.total_commit)/3
     }catch(err){
@@ -86,7 +87,7 @@ const fetchUser = async () =>{
 const fetchTopic = async () =>{
     const token = localStorage.getItem('token')
     try{
-        const res = await axios.get(`${eva}/score_commit/topic`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/commit_score/topic/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         topics.value = res.data
     }catch(err){
         console.error('Error GET Topics!',err)
@@ -96,7 +97,7 @@ const fetchTopic = async () =>{
 const fetchCommits = async () =>{
     const token = localStorage.getItem('token')
     try{
-        const res = await axios.get(`${eva}/score_commit/commits`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/commit_score/commits/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         commits.value = res.data
     }catch(err){
         console.error('Error GET Topics!',err)
@@ -106,7 +107,7 @@ const fetchCommits = async () =>{
 const fetchScores = async () =>{
     const token = localStorage.getItem('token')
     try{
-        const res = await axios.get(`${eva}/score_commit/scores`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/commit_score/scores/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         scores.value = res.data.scores
     }catch(err){
         console.error('Error GET Topics!',err)
