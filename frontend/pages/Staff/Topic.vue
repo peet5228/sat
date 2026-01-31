@@ -7,7 +7,7 @@
                     <v-card-text>
                         <v-form @submit.prevent="saveMember">
                             <v-row>
-                                <v-col cols="12" md="6">
+                                <v-col cols="12" md="12">
                                     <v-text-field label="ชื่อ" v-model="form.name_topic" :error-messages="error.name_topic"></v-text-field>
                                 </v-col>
                                 <v-row>
@@ -28,8 +28,6 @@
                                 <tr>
                                     <th class="text-center border">ลำดับ</th>
                                     <th class="text-center border">หัวข้อการประเมิน</th>
-                                    <th class="text-center border">อีเมล</th>
-                                    <th class="text-center border">ชื่อผู้ใช้</th>
                                     <th class="text-center border">จัดการ</th>
                                 </tr>
                             </thead>
@@ -106,8 +104,8 @@ const saveMember = async () =>{
     try{
         form.value.id_topic
             ? await axios.put(`${staff}/topic/${form.value.id_topic}`,form.value,{headers:{Authorization:`Bearer ${token}`}})
-            : await axios.post(`${api}/auth/regis`,{header:{Authorization:`Bearer ${token}`}})
-        alert('ทำรานการสำเร็จ')
+            : await axios.post(`${staff}/topic`,form.value,{headers:{Authorization:`Bearer ${token}`}})
+        alert('ทำรายการสำเร็จ')
         await fetch()
         await reset()
     }catch(err){
@@ -118,7 +116,7 @@ const saveMember = async () =>{
 const del = async (id_topic:number) => {
     try{
         if(!confirm('ต้องการลบใช่หรือไม่')) return
-        await axios.delete(`${staff}/member/${id_topic}`,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.delete(`${staff}/topic/${id_topic}`,{headers:{Authorization:`Bearer ${token}`}})
         await fetch()
         await reset()
     }catch(err){

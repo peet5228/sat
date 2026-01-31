@@ -26,6 +26,12 @@ app.use('/api/profile',profile)
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
 
+const topic = require('./routes/Staff/topic')
+app.use('/api/Staff/topic',topic)
+
+const indicate = require('./routes/Staff/indicate')
+app.use('/api/Staff/indicate',indicate)
+
 // Block 404 Status
 app.use((req,res) => res.status(404).json({message:'กำลังปรับปรุง!555'}))
 
