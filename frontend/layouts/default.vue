@@ -52,6 +52,11 @@ const roles = [
     {title:'จัดการตัวชี้วัด',to:'/Staff/Indicate',role:'ฝ่ายบุคลากร'},
     {title:'จัดการรอบการประเมิน',to:'/Staff/Round_eva',role:'ฝ่ายบุคลากร'},
     {title:'จัดการแบบประเมิน',to:'/Staff/Eva',role:'ฝ่ายบุคลากร'},
+    {title:'ผลสรุปการประเมินของผู้รับการประเมิน',to:'/Staff/Score_evaList',role:'ฝ่ายบุคลากร'},
+    {title:'ผลสรุปการประเมินของกรรมการประเมิน',to:'/Staff/Score_commitList',role:'ฝ่ายบุคลากร'},
+    {title:'สถานะการประเมินของผู้รับการประเมินผล',to:'/Staff/StatusEva',role:'ฝ่ายบุคลากร'},
+    {title:'สถานะการประเมินของกรรมการประเมิน',to:'/Staff/StatusCommit',role:'ฝ่ายบุคลากร'},
+    {title:'คู่มือสำหรับการประเมิน',to:'/Staff/Document',role:'ฝ่ายบุคลากร'},
 
     // Commit
     {title:'รายชื่อผู้รับการรปะเมิน',to:'/Committee/',role:'กรรมการประเมิน'},
